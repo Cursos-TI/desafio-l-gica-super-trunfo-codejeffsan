@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 // Desafio Super Trunfo - Países
 // Tema 2 - Comparação das Cartas
@@ -17,18 +19,12 @@ int main() {
     // Variáveis do nivel aventureiro
     float densidade1, densidade2, pibper1, pibper2;
 
-    // Variáveis do nivel mestre0
+    // Variáveis do nivel mestre
     float SuperPoderA = populacao1 + area1 + pib1 + pontos_turisticos1 + pibper1 + (1 / densidade1); 
     float SuperPoderB = populacao2 + area2 + pib2 + pontos_turisticos2 + pibper2 + (1 / densidade2);
     
     // Variável para criar um menu usando o switch
     int opcao;
-    // Cadastro das Cartas:
-    // Implemente a lógica para solicitar ao usuário que insira os dados das cidades
-    // utilizando a função scanf para capturar as entradas.
-    // utilize o código do primeiro desafio
-
-    // Menu interativo para escolher qual atributo será comparado
 
     // Cadastro da primeira carta
     printf("\nDigite o código da primeira cidade: \n");
@@ -100,7 +96,7 @@ int main() {
     // Desenvolva a lógica de comparação entre duas cartas.
     // Utilize estruturas de decisão como if, if-else para comparar atributos como população, área, PIB, etc.
 
-    // Menu interativo para selecionar qual atributo será comparado
+   // Menu interativo para selecionar qual atributo será comparado
     printf("\n*** Super Trunfo - Comparação de Cartas ***\n");
     printf("Escolha o atributo para comparar:\n");
     printf("1. População\n");
@@ -109,80 +105,58 @@ int main() {
     printf("4. PIB\n");
     printf("5. Densidade Populacional\n");
     printf("6. PIB per Capita\n");
+    printf("7. Comparar dois atributos (População + PIB)\n");
     printf("Digite sua opção: ");
     scanf("%d", &opcao);
-    
-    switch (opcao)
-{
+
+    float valor1 = 0, valor2 = 0;
+
+    switch (opcao) {
     case 1:
         printf("\nComparar a população\n");
-        if (populacao1 > populacao2)
-            printf("A cidade vencedora é: %s\n", nome1);
-        else if (populacao1 < populacao2)
-            printf("A cidade vencedora é: %s\n", nome2);
-        else
-            printf("Houve um empate!\n");
+        valor1 = populacao1;
+        valor2 = populacao2;
         break;
-
     case 2:
         printf("\nComparar a quantidade de pontos turísticos\n");
-        if (pontos_turisticos1 > pontos_turisticos2)
-            printf("A cidade vencedora é: %s\n", nome1);
-        else if (pontos_turisticos1 < pontos_turisticos2)
-            printf("A cidade vencedora é: %s\n", nome2);
-        else
-            printf("Houve um empate!\n");
+        valor1 = pontos_turisticos1;
+        valor2 = pontos_turisticos2;
         break;
-
     case 3:
         printf("\nComparar a Área em km2\n");
-        if (area1 > area2)
-            printf("A cidade vencedora é: %s\n", nome1);
-        else if (area1 < area2)
-            printf("A cidade vencedora é: %s\n", nome2);
-        else
-            printf("Houve um empate!\n");
+        valor1 = area1;
+        valor2 = area2;
         break;
-
     case 4:
         printf("\nComparar o PIB\n");
-        if (pib1 > pib2)
-            printf("A cidade vencedora é: %s\n", nome1);
-        else if (pib1 < pib2)
-            printf("A cidade vencedora é: %s\n", nome2);
-        else
-            printf("Houve um empate!\n");
+        valor1 = pib1;
+        valor2 = pib2;
         break;
-
     case 5:
-        printf("\nComparar a densidade populacional\n");
-        if (densidade1 < densidade2)
-            printf("A cidade vencedora é: %s\n", nome1);
-        else if (densidade1 > densidade2)
-            printf("A cidade vencedora é: %s\n", nome2);
-        else
-            printf("Houve um empate!\n");
-        break;
-
+        printf("\nComparar a densidade populacional (menor é melhor)\n");
+        valor1 = densidade1;
+        valor2 = densidade2;
+        // Inverte lógica: menor densidade vence
+        printf("A cidade vencedora é: %s\n", 
+            (valor1 < valor2) ? nome1 : (valor1 > valor2) ? nome2 : "Empate");
+        return 0;
     case 6:
         printf("\nComparar o PIB per Capita\n");
-        if (pibper1 > pibper2)
-            printf("A cidade vencedora é: %s\n", nome1);
-        else if (pibper1 < pibper2)
-            printf("A cidade vencedora é: %s\n", nome2);
-        else
-            printf("Houve um empate!\n");
+        valor1 = pibper1;
+        valor2 = pibper2;
         break;
-
+    case 7:
+        printf("\nComparar População + PIB\n");
+        valor1 = populacao1 + pib1;
+        valor2 = populacao2 + pib2;
+        break;
     default:
         printf("\nOpção Inválida!\n");
-        break;
-}
+        return 0;
+    }
 
-    // Exibição dos Resultados:
-    // Após realizar as comparações, exiba os resultados para o usuário.
-    // Certifique-se de que o sistema mostre claramente qual carta venceu e com base em qual atributo.
+    // Comparação com operador ternário
+printf("A cidade vencedora é: %s\n", 
+    (valor1 > valor2) ? nome1 : (valor1 < valor2) ? nome2 : "Empate");
 
-
-    return 0;
 }
